@@ -650,12 +650,6 @@ export default function App() {
                   transition={{ delay: 1, duration: 0.6 }}
                   className="text-center mt-8"
                 >
-                  <p className="text-sm text-[#4ECDC4]/60">
-                    ¿Ya tienes cuenta?{' '}
-                    <a href="#" className="text-[#FF6B6B] hover:text-[#FF8E72] transition-colors font-medium">
-                      Inicia sesión
-                    </a>
-                  </p>
                 </motion.div>
 
                 {/* Detalle decorativo */}
@@ -723,14 +717,12 @@ export default function App() {
                   transition={{ delay: 0.5, duration: 0.6 }}
                   className="text-center mb-8"
                 >
-                  <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[#FF6B6B] via-[#4ECDC4] to-[#5DD9C1] bg-clip-text text-transparent mb-3 tracking-tight">
-                    ¡Bienvenido a Splash Bubble!
+                  <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[#FF6B6B] via-[#4ECDC4] to-[#5DD9C1] bg-clip-text text-transparent tracking-tight">
+                    Registro exitoso
                   </h1>
-                  <p className="text-[#4ECDC4]/80 text-sm sm:text-base leading-relaxed">
-                    Tu cuenta ha sido creada exitosamente.<br />
-                    Estás listo para disfrutar de beneficios exclusivos.
-                  </p>
                 </motion.div>
+                {/* Espacio entre título y beneficios */}
+                <div className="h-6" />
 
                 {/* Beneficios */}
                 <motion.div
@@ -792,10 +784,23 @@ export default function App() {
                   transition={{ delay: 1.1, duration: 0.6 }}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => console.log('Ir al dashboard')}
+                  onClick={() => {
+                    setIsSuccess(false);
+                    setFormData({
+                      fullName: '',
+                      email: '',
+                      phone: '',
+                      password: '',
+                      confirmPassword: '',
+                      country: '',
+                      city: '',
+                      description: '',
+                      acceptTerms: false,
+                    });
+                  }}
                   className="w-full py-5 bg-gradient-to-r from-[#FF6B6B] via-[#FF8E72] to-[#4ECDC4] text-white font-bold text-lg rounded-xl shadow-2xl shadow-[#FF6B6B]/40 hover:shadow-[#4ECDC4]/60 transition-all duration-300"
                 >
-                  Comenzar a explorar
+                  Listo
                 </motion.button>
 
                 {/* Detalle decorativo */}
