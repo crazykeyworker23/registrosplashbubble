@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { User, Mail, Lock, Eye, EyeOff, Check, Sparkles, Award, Gift, Phone, MapPin, Globe, FileText } from 'lucide-react';
+import { User, Mail, Lock, Eye, EyeOff, Check, Sparkles, Award, Gift, Phone, MapPin, FileText } from 'lucide-react';
 import logoImage from '../assets/bubble.png';
 import { registerUser } from '../api/api';
 
@@ -12,8 +12,7 @@ export default function App() {
     phone: '',
     password: '',
     confirmPassword: '',
-    country: '',
-    city: '',
+    city: 'IQUITOS',
     description: '',
     acceptTerms: false
   });
@@ -392,7 +391,12 @@ export default function App() {
                           type="tel"
                           placeholder="Teléfono"
                           value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          onChange={(e) => {
+                            const value = e.target.value.replace(/\D/g, '').slice(0, 9);
+                            setFormData({ ...formData, phone: value });
+                          }}
+                          maxLength={9}
+                          inputMode="numeric"
                           onFocus={() => setFocusedField('phone')}
                           onBlur={() => setFocusedField(null)}
                           className="w-full pl-12 pr-4 py-4 bg-[#0a1520]/50 border border-[#4ECDC4]/20 rounded-xl text-white placeholder:text-[#4ECDC4]/40 focus:border-[#FF6B6B] focus:bg-[#0a1520]/80 focus:shadow-lg focus:shadow-[#FF6B6B]/20 transition-all duration-300 outline-none"
@@ -403,54 +407,29 @@ export default function App() {
                     </motion.div>
                   </div>
 
-                  {/* País y Ciudad - Grid 2 columnas */}
-                  <div className="grid grid-cols-2 gap-4">
-                    {/* País */}
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.58, duration: 0.6 }}
-                    >
-                      <div className="relative">
-                        <Globe className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors duration-300 ${
-                          focusedField === 'country' ? 'text-[#4ECDC4]' : 'text-[#4ECDC4]/40'
-                        }`} />
-                        <input
-                          type="text"
-                          placeholder="País"
-                          value={formData.country}
-                          onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                          onFocus={() => setFocusedField('country')}
-                          onBlur={() => setFocusedField(null)}
-                          className="w-full pl-12 pr-4 py-4 bg-[#0a1520]/50 border border-[#4ECDC4]/20 rounded-xl text-white placeholder:text-[#4ECDC4]/40 focus:border-[#4ECDC4] focus:bg-[#0a1520]/80 focus:shadow-lg focus:shadow-[#4ECDC4]/20 transition-all duration-300 outline-none"
-                          disabled={isSubmitting}
-                        />
-                      </div>
-                    </motion.div>
-
-                    {/* Ciudad */}
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.6, duration: 0.6 }}
-                    >
-                      <div className="relative">
-                        <MapPin className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors duration-300 ${
-                          focusedField === 'city' ? 'text-[#FF6B6B]' : 'text-[#4ECDC4]/40'
-                        }`} />
-                        <input
-                          type="text"
-                          placeholder="Ciudad"
-                          value={formData.city}
-                          onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                          onFocus={() => setFocusedField('city')}
-                          onBlur={() => setFocusedField(null)}
-                          className="w-full pl-12 pr-4 py-4 bg-[#0a1520]/50 border border-[#4ECDC4]/20 rounded-xl text-white placeholder:text-[#4ECDC4]/40 focus:border-[#FF6B6B] focus:bg-[#0a1520]/80 focus:shadow-lg focus:shadow-[#FF6B6B]/20 transition-all duration-300 outline-none"
-                          disabled={isSubmitting}
-                        />
-                      </div>
-                    </motion.div>
-                  </div>
+                  {/* Ciudad */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6, duration: 0.6 }}
+                  >
+                    <div className="relative">
+                      <MapPin className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors duration-300 ${
+                        focusedField === 'city' ? 'text-[#FF6B6B]' : 'text-[#4ECDC4]/40'
+                      }`} />
+                      <input
+                        type="text"
+                        placeholder="Ciudad"
+                        value={formData.city}
+                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                        onFocus={() => setFocusedField('city')}
+                        onBlur={() => setFocusedField(null)}
+                        readOnly
+                        className="w-full pl-12 pr-4 py-4 bg-[#0a1520]/50 border border-[#4ECDC4]/20 rounded-xl text-white placeholder:text-[#4ECDC4]/40 focus:border-[#FF6B6B] focus:bg-[#0a1520]/80 focus:shadow-lg focus:shadow-[#FF6B6B]/20 transition-all duration-300 outline-none"
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                  </motion.div>
 
                   {/* Descripción opcional como select */}
                   <motion.div
@@ -471,10 +450,10 @@ export default function App() {
                         disabled={isSubmitting}
                       >
                         <option value="">Elige tu GYM (opcional)</option>
+                        <option value="CROSSFIT_LA_ROCA">JOLUMA CROSSFIT</option>
                         <option value="JUMPING">JUMPING</option>
                         <option value="JULLY">JULLY</option>
                         <option value="ENERGY">ENERGY</option>
-                        <option value="CROSSFIT_LA_ROCA">CROSSFIT LA ROCA</option>
                       </select>
                     </div>
                   </motion.div>
@@ -741,8 +720,8 @@ export default function App() {
                       <Award className="w-5 h-5 text-[#FF6B6B]" />
                     </div>
                     <div>
-                      <h3 className="text-white font-semibold mb-1">100 puntos de bienvenida</h3>
-                      <p className="text-[#4ECDC4]/70 text-sm">Canjéalos por bebidas y productos exclusivos</p>
+                      <h3 className="text-white font-semibold mb-1">15% de descuento</h3>
+                      <p className="text-[#4ECDC4]/70 text-sm">Por tu registro obtuviste un 15% de descuento en tu bebida</p>
                     </div>
                   </motion.div>
 
@@ -771,8 +750,8 @@ export default function App() {
                       <Gift className="w-5 h-5 text-[#FF8E72]" />
                     </div>
                     <div>
-                      <h3 className="text-white font-semibold mb-1">Sorpresas de cumpleaños</h3>
-                      <p className="text-[#4ECDC4]/70 text-sm">Celebra tu día con regalos especiales</p>
+                      <h3 className="text-white font-semibold mb-1">Visítanos</h3>
+                      <p className="text-[#4ECDC4]/70 text-sm">Visítanos en Calle Sargento Lores #762</p>
                     </div>
                   </motion.div>
                 </motion.div>
@@ -792,8 +771,7 @@ export default function App() {
                       phone: '',
                       password: '',
                       confirmPassword: '',
-                      country: '',
-                      city: '',
+                      city: 'IQUITOS',
                       description: '',
                       acceptTerms: false,
                     });
