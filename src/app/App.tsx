@@ -720,8 +720,8 @@ export default function App() {
                       <Award className="w-5 h-5 text-[#FF6B6B]" />
                     </div>
                     <div>
-                      <h3 className="text-white font-semibold mb-1">15% de descuento</h3>
-                      <p className="text-[#4ECDC4]/70 text-sm">Por tu registro obtuviste un 15% de descuento en tu bebida</p>
+                      <h3 className="text-white font-semibold mb-1">% de descuento</h3>
+                      <p className="text-[#4ECDC4]/70 text-sm">Por tu registro obtuviste un % de descuento en tu bebida</p>
                     </div>
                   </motion.div>
 
