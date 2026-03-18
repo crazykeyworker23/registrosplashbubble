@@ -14,6 +14,7 @@ export default function App() {
     confirmPassword: '',
     city: 'IQUITOS',
     description: '',
+    srvTxtPackages: '',
     acceptTerms: false
   });
 
@@ -66,10 +67,13 @@ export default function App() {
       use_txt_username: formData.email,
       use_txt_email: formData.email,
       use_txt_fullname: formData.fullName,
+      use_txt_celular: formData.phone.trim() || null,
+      use_txt_city: formData.city.trim() || null,
       password: formData.password,
       use_txt_googlesub: null,
       use_txt_avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(formData.fullName)}&background=FF6B6B&color=fff&size=200`,
       srv_int_id: 1,
+      srv_txt_packages: formData.srvTxtPackages.trim() || null,
       rol_int_id: 3,
       use_txt_status: 'ACTIVO',
       is_active: true,
@@ -458,6 +462,28 @@ export default function App() {
                     </div>
                   </motion.div>
 
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.635, duration: 0.6 }}
+                  >
+                    <div className="relative">
+                      <FileText className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors duration-300 ${
+                        focusedField === 'srvTxtPackages' ? 'text-[#4ECDC4]' : 'text-[#4ECDC4]/40'
+                      }`} />
+                      <input
+                        type="text"
+                        placeholder="Paquete"
+                        value={formData.srvTxtPackages}
+                        onChange={(e) => setFormData({ ...formData, srvTxtPackages: e.target.value })}
+                        onFocus={() => setFocusedField('srvTxtPackages')}
+                        onBlur={() => setFocusedField(null)}
+                        className="w-full pl-12 pr-4 py-4 bg-[#0a1520]/50 border border-[#4ECDC4]/20 rounded-xl text-white placeholder:text-[#4ECDC4]/40 focus:border-[#4ECDC4] focus:bg-[#0a1520]/80 focus:shadow-lg focus:shadow-[#4ECDC4]/20 transition-all duration-300 outline-none"
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                  </motion.div>
+
                   {/* Contraseña */}
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
@@ -773,6 +799,7 @@ export default function App() {
                       confirmPassword: '',
                       city: 'IQUITOS',
                       description: '',
+                      srvTxtPackages: '',
                       acceptTerms: false,
                     });
                   }}
